@@ -1,0 +1,108 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "用户列表",
+        "contact": {
+            "name": "hlt",
+            "url": "localhost",
+            "email": "935298911@qq.com"
+        },
+        "version": "3.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api/user"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "获取随机用户列表",
+                "description": "获取随机用户列表",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "pre",
+                        "in": "query",
+                        "description": "随机姓名的前缀",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "age",
+                        "in": "query",
+                        "description": "随机年龄的基数",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "fail"
+                    },
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "name": {
+                                                "title": "name",
+                                                "description": "用户名称，包括前缀（如果有）",
+                                                "format": "string"
+                                            },
+                                            "gender": {
+                                                "title": "gender",
+                                                "description": "用户性别",
+                                                "format": "string"
+                                            },
+                                            "age": {
+                                                "title": "age",
+                                                "description": "用户年龄+基数",
+                                                "format": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "passport": {
+                "type": "oauth2",
+                "description": "Laravel passport oauth2 security.",
+                "in": "header",
+                "scheme": "https",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://localhost/oauth/authorize",
+                        "tokenUrl": "http://localhost/oauth/token",
+                        "refreshUrl": "http://localhost/token/refresh",
+                        "scopes": []
+                    }
+                }
+            },
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
